@@ -14,9 +14,9 @@ const HomeScreen = ({ navigation }) => {
 
   const renderItem = ({ item }) => {
     const backgroundColors = {
-      Essential: '#A3E4D7',
-      Leisure: '#F5B7B1',
-      default: '#AED6F1'
+      Essential: '#C9E9D2',
+      Leisure: '#FFCFB3',
+      default: '#CAF4FF'
     }
 
     const backgroundColor = backgroundColors[item.type] || backgroundColors.default
