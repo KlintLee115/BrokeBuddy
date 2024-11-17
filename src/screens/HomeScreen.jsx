@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native
 import { FAB } from 'react-native-paper';
 import { TRANSACTION_DATA } from '../../utility';
 import { useFocusEffect } from '@react-navigation/native';
+import FabAddTranaction from '../components/FabAddTransaction';
 
 const HomeScreen = ({ navigation }) => {
   const [transactions, setTransactions] = useState([])
@@ -48,11 +49,7 @@ const HomeScreen = ({ navigation }) => {
           keyExtractor={(item) => item.id}
         />
       )}
-      <FAB
-        style={styles.fab}
-        icon="plus"
-        onPress={() => navigation.navigate('AddTransaction')}
-      />
+      <FabAddTranaction navigation={navigation}/>
     </View>
   );
 };
@@ -66,14 +63,6 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     borderRadius: 5,
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    borderWidth: 2,
-    borderColor: "black"
   },
 });
 

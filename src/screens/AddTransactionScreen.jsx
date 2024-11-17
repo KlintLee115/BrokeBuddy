@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { TRANSACTION_DATA, addEditTransaction, getNewID } from '../../utility';
+import ErrorText from '../components/ErrorText';
 
 const AddTransactionScreen = ({ route, navigation }) => {
   const { id } = route.params || {}
@@ -13,8 +14,20 @@ const AddTransactionScreen = ({ route, navigation }) => {
   const [description, setDescription] = useState(transaction.description || '')
   const [amount, setAmount] = useState(transaction.amount || '')
   const [type, setType] = useState(transaction.type || 'Essential')
+  const [error, setError] = useState('');
 
   const handleSubmit = () => {
+
+    if (!title || !description || !amount || !type) {
+      setError('All fields are required.');
+      return;
+    }
+
+    if (isNaN(amount) || Number(amount) <= 0) {
+      setError('Amount must be a positive number.');
+      return;
+    }
+
     if (isEditMode) {
       addEditTransaction({ id, title, description, amount, type })
     } else {
@@ -33,6 +46,8 @@ const AddTransactionScreen = ({ route, navigation }) => {
       <TextInput value={amount} onChangeText={setAmount} style={styles.input} keyboardType="numeric" />
       <Text>Type</Text>
       <TextInput value={type} onChangeText={setType} style={styles.input} />
+
+      {error ? <ErrorText text={error}/> : null}
       <Button title="Submit" onPress={handleSubmit} />
     </View>
   );
